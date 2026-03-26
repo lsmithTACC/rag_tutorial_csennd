@@ -12,10 +12,11 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma 
 
 # User controls:
+EMBEDDING_MODEL = "./models/Qwen3-Embedding-0.6B"
 CHUNK_SIZE = 4096 		# Size of text chunks, in number of characters
 CHUNK_OVERLAP = 128		# Size of overlap between, in number of characters
-NUM_K = 2 				# Number of nearest neighbors in semantic search
-MAX_NEW_TOKENS = 64
+NUM_K = 2 				# Number of nearest neighbors returned in semantic search
+MAX_NEW_TOKENS = 64     # Max length of LLM response, in tokens
 
 # Main RAG script with example
 def main(model_path):
@@ -54,7 +55,7 @@ def main(model_path):
 
     # Setup database Embeddings
     embeddings = HuggingFaceEmbeddings(
-        model_name="./models/Qwen3-Embedding-0.6B",
+        model_name=EMBEDDING_MODEL,
         model_kwargs={'device': device},
         encode_kwargs={"normalize_embeddings": True},
     )
